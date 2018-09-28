@@ -3,21 +3,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.optimize as optimize
-
+import data
 
 ## DATA IMPORTS ##
 
 # Data filename
 ifname = "data.txt"
 
-# Import the data
-# dtype is float64 for the whole array
-# omitting delimiter option lets genfromtxt find data on each line automatically
-data = np.genfromtxt(ifname, usecols=(0, 1))
-
-# Use subarray to grab x and y data into their own arrays
-x = data[:, 0]
-y = data[:, 1]
+# Import data from file
+x, y = data.xyImport(ifname)
 
 
 ## PLOTTING ##

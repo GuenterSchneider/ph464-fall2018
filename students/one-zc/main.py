@@ -9,7 +9,7 @@ import fit_nonlin
 ## DATA IMPORTS ##
 
 # Data filename
-ifname = "data.txt"
+ifname = "data/data.txt"
 
 # Import data from file
 x, y = data.xyImport(ifname)

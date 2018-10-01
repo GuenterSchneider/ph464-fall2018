@@ -20,13 +20,15 @@ plt.plot(x,y,"o",label="data")
 ### Fit data ###
 x_fit = np.linspace(3,10,500)
 ### parabolic ###
-z = np.polyfit(x,y,3)
+z = np.polyfit(x,y,2)
 fit = np.poly1d(z)
 y_fit = fit(x_fit)
-plt.plot(x_fit,y_fit,"-r",label="n=3 fit")
+plt.plot(x_fit,y_fit,"-r",label="Parabolic fit")
 min = min(y_fit)
+index = np.argmin(y_fit)
 
 print('Minimum located at: ', min)
+print('At index: ', index)
 
 ### n=4 fit ###
 z = np.polyfit(x,y,4)

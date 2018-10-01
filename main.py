@@ -2,9 +2,9 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy.optimize as optimize
 import data
 import fit_lin
+import fit_nonlin
 
 ## DATA IMPORTS ##
 
@@ -52,22 +52,21 @@ def fitFunction(V, V0, E0, B0, BP):
 
     return (t1 + t2 + t3)
 
-# X region to plot over
-xpp = np.linspace(min(x), max(x))
-
 # Guess values for the model to feed to the nonlinear fit
 guess = (5, -8, 1, 2.7)
-plt.plot(xpp, fitFunction(xpp, *guess), label="Nonlinear guess: V0=%2.1f, E0=%2.1f, B0=%2.1f, BP=%2.1f" % tuple(guess))
 
 # Fit the data to the fit function
-popt, pcov = optimize.curve_fit(fitFunction, x, y, p0=guess)
+xpp, ypp, popt = fit_nonlin.curveFit(fitFunction, x, y, guess)
+
+# Plot the guess
+plt.plot(xpp, fitFunction(xpp, *guess), label="Nonlinear guess: V0=%2.1f, E0=%2.1f, B0=%2.1f, BP=%2.1f" % tuple(guess))
 
 # Plot the nonlinear fit
 plt.plot(xpp, fitFunction(xpp, *popt), label="Nonlinear fit: V0=%2.1f, E0=%2.1f, B0=%2.1f, BP=%2.1f" % tuple(popt))
 
 # Plot another nonlinear fit over only the roi
-popt2, pcov2 = optimize.curve_fit(fitFunction, xroi, yroi, p0=guess)
-plt.plot(xp, fitFunction(xp, *popt2), label="Nonlinear fit: V0=%2.1f, E0=%2.1f, B0=%2.1f, BP=%2.1f" % tuple(popt2))
+xpp2, ypp2, popt2 = fit_nonlin.curveFit(fitFunction, xroi, yroi, guess)
+plt.plot(xpp2, fitFunction(xpp2, *popt2), label="Nonlinear fit: V0=%2.1f, E0=%2.1f, B0=%2.1f, BP=%2.1f" % tuple(popt2))
 
 # Show plots
 plt.legend()

@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.optimize as optimize
 import data
+import fit_lin
 
 ## DATA IMPORTS ##
 
@@ -30,11 +31,10 @@ plt.ylabel('y')
 # The minimum of the data looks vaguely parabolic, try to fit a function
 # Be selective about the data to fit
 r = 4
-roi = [np.argmin(y) - r, np.argmin(y) + r]
+xroi = fit_lin.selectRoi(x, np.argmin(y), r)
+yroi = fit_lin.selectRoi(y, np.argmin(y), r)
 
-qdfit = np.polyfit(x[roi[0]:roi[1]], y[roi[0]:roi[1]], 2)
-xp = np.linspace(x[roi[0]], x[roi[1]])
-yp = (qdfit[0] * xp**2) + (qdfit[1] * xp) + qdfit[2]
+xp, yp = fit_lin.quadraticFit(xroi, yroi)
 
 # Plot the fit data
 plt.plot(xp, yp, label="Quadratic Fit")
@@ -66,7 +66,7 @@ popt, pcov = optimize.curve_fit(fitFunction, x, y, p0=guess)
 plt.plot(xpp, fitFunction(xpp, *popt), label="Nonlinear fit: V0=%2.1f, E0=%2.1f, B0=%2.1f, BP=%2.1f" % tuple(popt))
 
 # Plot another nonlinear fit over only the roi
-popt2, pcov2 = optimize.curve_fit(fitFunction, x[roi[0]:roi[1]], y[roi[0]:roi[1]], p0=guess)
+popt2, pcov2 = optimize.curve_fit(fitFunction, xroi, yroi, p0=guess)
 plt.plot(xp, fitFunction(xp, *popt2), label="Nonlinear fit: V0=%2.1f, E0=%2.1f, B0=%2.1f, BP=%2.1f" % tuple(popt2))
 
 # Show plots

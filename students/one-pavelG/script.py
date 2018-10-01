@@ -19,4 +19,12 @@ ax.set_title('Example Plot')
 ax.legend()
 plt.show()
 
-#print('Mininum point on linear regression is:', min(fitted_data))
+
+crit = fit.deriv().r
+
+
+
+print('If we complete the square on the equation we get the following formula:')
+print('0.226729 * (x − 6.74078)^2 − 9.14145')
+print('Which means the minimum point of the fitted parabola is at X =', crit)
+print('and the curvature is 0.226729')

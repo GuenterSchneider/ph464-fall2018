@@ -32,7 +32,7 @@ def quadraticFit(x, y):
         x: Array-like independent data
         y: Array-like dependent data
 
-    Output: Tuple of data arrays (x, y)
+    Output: Tuple of data arrays (x, y, coeffs)
     '''
 
     # Returned x data should be a linspace over given x
@@ -43,4 +43,4 @@ def quadraticFit(x, y):
     yfit = (coeffs[0] * xfit**2) + (coeffs[1] * xfit) + coeffs[2]
 
     # Return arrays suitable for plotting
-    return xfit, yfit
+    return xfit, yfit, coeffs

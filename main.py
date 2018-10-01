@@ -34,10 +34,10 @@ r = 4
 xroi = fit_lin.selectRoi(x, np.argmin(y), r)
 yroi = fit_lin.selectRoi(y, np.argmin(y), r)
 
-xp, yp = fit_lin.quadraticFit(xroi, yroi)
+xp, yp, qdcoeff = fit_lin.quadraticFit(xroi, yroi)
 
 # Plot the fit data
-plt.plot(xp, yp, label="Quadratic Fit")
+plt.plot(xp, yp, label="y = %2.1fx^2 + %2.1fx + %2.1f" % tuple(qdcoeff))
 
 
 ## NONLINEAR FITTING ##
